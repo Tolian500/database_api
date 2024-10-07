@@ -9,7 +9,7 @@ app = Flask(__name__)
 engine = create_engine(os.environ['SQL_CONF'])
 metadata = MetaData()
 table_name = 'outdoor'
-table = Table(table_name, metadata, autoload_with=engine, schema='main')
+table = Table(table_name, metadata, autoload_with=engine, schema='public')
 
 @app.route('/add_data', methods=['POST'])
 def add_data():
