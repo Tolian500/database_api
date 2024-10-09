@@ -15,8 +15,6 @@ table = Table(table_name, metadata, autoload_with=engine, schema='public')
 def add_data():
     temp = request.json.get('temp')
     hum = request.json.get('hum')
-    date = datetime.datetime.now()
-
     try:
         with engine.connect() as connection:
             insert_stmt = insert(table).values(temp=temp, hum=hum, date=date)
