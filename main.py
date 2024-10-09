@@ -3,6 +3,8 @@ from sqlalchemy import create_engine, MetaData, Table, insert
 from discord_manager import send_message as discord_send_message
 import datetime
 import os
+import asyncio  # Add this
+
 
 
 app = Flask(__name__)
@@ -33,11 +35,15 @@ def add_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/send_message', methods = ['POST'])
-async def send_message():
+
+@app.route('/send_message', methods=['POST'])
+def send_message():
     message = request.json.get('message')
     silent_mode = request.json.get('silent_mode', False)  # Default to False if not provided
-    await discord_send_message(message=message, silent=silent_mode)
+
+    # Run the async function inside the synchronous route
+    asyncio.run(discord_send_message(message=message, silent=silent_mode))
+
     return jsonify({"status": "message sent"}), 200
 
 if __name__ == '__main__':
