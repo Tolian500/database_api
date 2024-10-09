@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from sqlalchemy import create_engine, MetaData, Table, insert
+from discord_manager import send_message as discord_send_message
 import datetime
 import os
+
 
 app = Flask(__name__)
 
@@ -30,6 +32,13 @@ def add_data():
         return jsonify({"status": "success"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/send_message', methods = ['POST'])
+async def send_message():
+    message = request.json.get('message')
+    silent_mode = request.json.get('silent_mode', False)  # Default to False if not provided
+    await discord_send_message(message=message, silent=silent_mode)
+    return jsonify({"status": "message sent"}), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
