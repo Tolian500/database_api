@@ -4,6 +4,7 @@ from discord_manager import send_message as discord_send_message
 import datetime
 import os
 import asyncio  # Add this
+from sql_manager import get_last_data
 
 
 
@@ -12,6 +13,8 @@ app = Flask(__name__)
 # Database connection
 engine = create_engine(os.environ['SQL_CONF'])
 metadata = MetaData()
+
+
 
 @app.route('/add_data', methods=['POST'])
 def add_data():
@@ -47,4 +50,5 @@ def send_message():
     return jsonify({"status": "message sent"}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    print(get_last_data(metadata, engine))
+    # app.run(host='0.0.0.0', port=5000)
