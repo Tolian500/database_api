@@ -5,6 +5,7 @@ import datetime
 import os
 import asyncio  # Add this
 from sql_manager import get_last_data
+from reporter import get_report
 
 
 
@@ -49,5 +50,7 @@ def send_message():
     return jsonify({"status": "message sent"}), 200
 
 if __name__ == '__main__':
-    print(get_last_data(metadata, engine))
     # app.run(host='0.0.0.0', port=5000)
+    data = get_last_data()
+    print(data)
+    print(get_report(*data[1]))
