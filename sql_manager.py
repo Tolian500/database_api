@@ -27,6 +27,6 @@ def get_last_data():
         # Execute the query
         with engine.connect() as connection:
             cur_results = connection.execute(stmt).fetchall()
-            results[table_name] = cur_results  # store results with table name as key
+            results[table_name] = cur_results[0]  # store results with table name as key
 
     return results

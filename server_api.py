@@ -6,8 +6,7 @@ import os
 import asyncio  # Add this
 from sql_manager import get_last_data
 from reporter import get_report
-
-
+import routine_tasks
 
 app = Flask(__name__)
 
@@ -46,11 +45,12 @@ def send_message():
 
     # Run the async function inside the synchronous route
     asyncio.run(discord_send_message(message=message, silent=silent_mode))
-
     return jsonify({"status": "message sent"}), 200
 
+# TEST THIS!!!
+@app.route('/send_message', methods=['POST'])
+def make_report():
+    routine_tasks.get_post_last_data()
+
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=5000)
-    data = get_last_data()
-    print(data)
-    print(get_report(*data[1]))
+    app.run(host='0.0.0.0', port=5000)
