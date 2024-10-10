@@ -25,7 +25,6 @@ def add_data():
     if not table_name or not temp or not hum:
         return jsonify({"error": "Missing table_name, temp or hum in the request"}), 400
 
-    # Load the table dynamically based on the request
     try:
         table = Table(table_name, metadata, autoload_with=engine, schema='public')
 

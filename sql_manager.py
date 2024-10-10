@@ -5,10 +5,10 @@ def get_last_data(metadata: MetaData, engine: create_engine):
     tables = ['indoor', 'outdoor']
     results = {}
     for table_name in tables:
+        print(table_name)
         table = Table(
             table_name,
             metadata,
-            autoload=True,
             autoload_with=engine
         )
 
