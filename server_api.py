@@ -15,12 +15,12 @@ engine = create_engine(os.environ['SQL_CONF'])
 metadata = MetaData()
 
 
-
 @app.route('/add_data', methods=['POST'])
 def add_data():
     table_name = request.json.get('table_name')
     temp = request.json.get('temp')
     hum = request.json.get('hum')
+    print(table_name,temp,hum)
 
     if not table_name or not temp or not hum:
         return jsonify({"error": "Missing table_name, temp or hum in the request"}), 400
