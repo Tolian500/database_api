@@ -22,7 +22,7 @@ def add_data():
     hum = request.json.get('hum')
     print(table_name,temp,hum)
 
-    if not table_name or not temp or not hum:
+    if table_name is None or temp is None or hum is None:
         return jsonify({"error": "Missing table_name, temp or hum in the request"}), 400
 
     try:
